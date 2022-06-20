@@ -1,10 +1,19 @@
 package br.com.yfs.tecnologia.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 public class Address {
+    /*
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

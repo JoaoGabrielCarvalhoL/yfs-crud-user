@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -24,7 +25,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address findById(Long id) {
+    public Address findById(UUID id) {
         Optional<Address> addressResult = addressRepository.findById(id);
         return addressResult.orElseThrow(()-> new NotFoundException("Address not found! Id: " + id));
     }
@@ -35,7 +36,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void deleteAddressById(Long id) {
+    public void deleteAddressById(UUID id) {
         Optional<Address> addressResult = addressRepository.findById(id);
         if (addressResult.isEmpty()){
             throw new NotFoundException("Address not found! Id: " + id);
@@ -44,15 +45,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void updateAddress(Long id, Address address) {
-        Optional<Address> addressResult = addressRepository.findById(id);
-        if (addressResult.isEmpty()) {
-            throw new NotFoundException("Address not found! Id: " + id);
-        }
-        addressResult.get().setDistrict(address.getDistrict());
-        addressResult.get().setNumberHouse(address.getNumberHouse());
-        addressResult.get().setStreet(address.getStreet());
-        addressResult.get().setZipCode(address.getZipCode());
-        addressRepository.save(addressResult.get());
+    public void updateAddress(Address address) {
+        saveAddress(address);
     }
 }
